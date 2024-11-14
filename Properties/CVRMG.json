@@ -1,0 +1,21 @@
+{
+  "_id": -1,
+  "name": "BigHeadMode",
+  "modversion": "1.0.0",
+  "gameversion": "r177",
+  "loaderversion": "0.6.4",
+  "modtype": "Mod",
+  "author": "JillTheSomething",
+  "description": "A ChilloutVR mod to make people's heads big (or small).",
+  "searchtags": [
+    "head",
+    "meme"
+  ],
+  "requirements": [
+    "[BTKUI](https://github.com/BTK-Development/BTKUILib)"
+  ],
+  "downloadlink": "https://github.com/jll123567/BigHeadMode/releases/download/1.0.0/BigHeadMode.dll",
+  "sourcelink": "https://github.com/jll123567/BigHeadMode",
+  "changelog": "Inital Release",
+  "embedcolor": "#32ff32"
+}
