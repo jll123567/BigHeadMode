@@ -110,7 +110,7 @@ namespace BigHeadMode
             if (ScaleLocal.Value) // Scale the local user's head, if the want.
             {
                 //MelonLogger.Msg($"Scaling local user head by {multiplier}.");
-                Transform headBone = PlayerSetup.Instance.animatorManager.Animator.GetBoneTransform(HumanBodyBones.Head);
+                Transform headBone = PlayerSetup.Instance.AnimatorManager.Animator.GetBoneTransform(HumanBodyBones.Head);
                 SetHeadSize(headBone, "local", multiplier);  // Local user saves the origial scale with the key "local".
             }
         }
@@ -150,7 +150,7 @@ namespace BigHeadMode
             {
                 if(k == "local")  // Handle restoring the local user.
                 {
-                    Transform headBone = PlayerSetup.Instance.animatorManager.Animator.GetBoneTransform(HumanBodyBones.Head);
+                    Transform headBone = PlayerSetup.Instance.AnimatorManager.Animator.GetBoneTransform(HumanBodyBones.Head);
                     headBone.localScale = OriginalHeadScales["local"];
                     toClear.Add("local");
                     continue;
