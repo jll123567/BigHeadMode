@@ -1,6 +1,6 @@
 ﻿using MelonLoader;
 
-[assembly: MelonInfo(typeof(BigHeadMode.Core), "BigHeadMode", "1.0.1", "JillTheSomething", "https://github.com/jll123567/BigHeadMode/releases")]
+[assembly: MelonInfo(typeof(BigHeadMode.Core), "BigHeadMode", "1.0.2", "JillTheSomething", "https://github.com/jll123567/BigHeadMode/releases")]
 [assembly: MelonGame("ChilloutVR", "ChilloutVR")]
 [assembly: MelonPlatform(MelonPlatformAttribute.CompatiblePlatforms.WINDOWS_X64)]
 [assembly: MelonPlatformDomain(MelonPlatformDomainAttribute.CompatibleDomains.MONO)]

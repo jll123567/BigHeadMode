@@ -11,24 +11,25 @@ namespace BigHeadMode
         public static Dictionary<string, Vector3> OriginalHeadScales = new Dictionary<string, Vector3>();
         public static Dictionary<string, (GameObject, float)> LateScaleQueue = new Dictionary<string, (GameObject, float)>();
 
-        private static MelonPreferences_Category BigHeadModePrefrenceCategory;
         private static MelonPreferences_Entry<bool> ScaleLocal;
         private static MelonPreferences_Entry<bool> ScaleRemote;
         private static MelonPreferences_Entry<float> Multipler;
+
+        public static bool Debug = false;
 
         /// <summary>
         /// Set up melon prefs and icons for BTK.
         /// </summary>
         public override void OnInitializeMelon()
         {
-            BigHeadModePrefrenceCategory = MelonPreferences.CreateCategory("BigHeadMode"); // Init melonprefs.
+            MelonPreferences.CreateCategory("BigHeadMode"); // Init melonprefs.
             ScaleLocal = MelonPreferences.CreateEntry<bool>("BigHeadMode", "ScaleLocal", true, "Scale Local Player", "Scale the local player head.");
             ScaleRemote = MelonPreferences.CreateEntry<bool>("BigHeadMode", "ScaleRemote", true, "Scale Remote Player", "Scale remote player's heads.");
             Multipler = MelonPreferences.CreateEntry<float>("BigHeadMode", "Multiplier", 2.0f, "Multiplier", "What to grow/shrink the head by (shrinks using `headScale * 1/multiplier`.");
 
             UI.LoadIcons(MelonAssembly.Assembly); // Init BTK buttons.
             UI.CreateCategory();  
-            //LoggerInstance.Msg("BigHeadMode Initialized.");
+            if (Debug) LoggerInstance.Msg("BigHeadMode Initialized.");
         }
 
         /// <summary>
@@ -109,7 +110,7 @@ namespace BigHeadMode
             }
             if (ScaleLocal.Value) // Scale the local user's head, if the want.
             {
-                //MelonLogger.Msg($"Scaling local user head by {multiplier}.");
+                if (Debug) MelonLogger.Msg($"Scaling local user head by {multiplier}.");
                 Transform headBone = PlayerSetup.Instance.AnimatorManager.Animator.GetBoneTransform(HumanBodyBones.Head);
                 SetHeadSize(headBone, "local", multiplier);  // Local user saves the origial scale with the key "local".
             }
@@ -133,9 +134,9 @@ namespace BigHeadMode
                 }
                 headBone.localScale = new Vector3(originalScale.x * multiplier, originalScale.y * multiplier, originalScale.z * multiplier);
             }
-            catch//(Exception e)
+            catch(Exception e)
             {
-                //MelonLogger.Error($"SetHeadSize Error:\n  {e}\n[{headBone} {uuid} {multiplier}]");
+                if (Debug) MelonLogger.Error($"SetHeadSize Error:\n  {e}\n[{headBone} {uuid} {multiplier}]");
             }
         }
 
@@ -167,17 +168,17 @@ namespace BigHeadMode
                     {
                         toClear.Add(k);
                         continue;
-                    }  
-                    //MelonLogger.Msg($"Restoring {p.Username} head.");
+                    }
+                    if (Debug) MelonLogger.Msg($"Restoring {p.Username} head.");
                     GameObject avatar = p.PlayerObject.transform.GetChild(2).GetChild(0).gameObject; // Fix they head.
                     Animator animator = avatar.GetComponent<Animator>();
                     Transform headBone = animator.GetBoneTransform(HumanBodyBones.Head);
                     headBone.localScale = OriginalHeadScales[k];
                     toClear.Add(k);  // We fixed them!, we can remove them now...
                 }
-                catch //(Exception e)  // If something goes wrong dont mention it.
+                catch(Exception e)  // If something goes wrong dont mention it.
                 {
-                    //MelonLogger.Warning($"RestoreHeadSize failed:\n{e}");
+                    if (Debug) MelonLogger.Warning($"RestoreHeadSize failed:\n{e}");
                 }
             }
             foreach (string k in toClear) OriginalHeadScales.Remove(k);  // Clear orignal scales since we're back to original.
