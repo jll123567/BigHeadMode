@@ -4,6 +4,5 @@
 [assembly: MelonGame("ChilloutVR", "ChilloutVR")]
 [assembly: MelonPlatform(MelonPlatformAttribute.CompatiblePlatforms.WINDOWS_X64)]
 [assembly: MelonPlatformDomain(MelonPlatformDomainAttribute.CompatibleDomains.MONO)]
-[assembly: MelonAdditionalDependencies("BTKUILib")]
 [assembly: MelonColor(255, 50, 255, 50)]
 [assembly: MelonAuthorColor(255, 0, 255, 0)]
